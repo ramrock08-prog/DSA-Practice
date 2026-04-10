@@ -18,6 +18,4 @@ Total Solved: 0 / 100
 | Graphs | 0 | 8 |
 | Dynamic Programming | 0 | 7 |
 
-## Resources
-- Striver A2Z Sheet: takeuforward.org
-- Leetcode: leetcode.com
+
