@@ -10,7 +10,6 @@ public:
             if (nums[mid] == target) {
                 return mid;
             }
-
             if (nums[left] <= nums[mid]) {
                 if (target >= nums[left] && target < nums[mid]) {
                     right = mid - 1; 
