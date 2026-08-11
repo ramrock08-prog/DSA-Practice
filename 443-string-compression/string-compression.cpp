@@ -14,7 +14,7 @@ public:
             }
             else{
                 chars[idx++]=ch;
-                string str=to_string(count);
+                string str = to_string(count);
                 for(char dig : str){
                     chars[idx++] = dig;
                 }
