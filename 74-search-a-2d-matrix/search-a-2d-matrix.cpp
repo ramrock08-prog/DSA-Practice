@@ -1,35 +1,32 @@
 class Solution {
 public:
-    bool searchMatrix(std::vector<std::vector<int>>& matrix, int target) {
-        if (matrix.empty() || matrix[0].empty()) {
-            return false;
-        }
-
-        int m = matrix.size();        
-        int n = matrix[0].size();   
+    bool searchInRow(vector<vector<int>>& mat, int target, int row) {
+        int n = mat[0].size();
+        int st =0, end=n-1;
         
-        int left = 0;
-        int right = m * n - 1;
-        
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            
-            int row = mid / n;
-            int col = mid % n;
-            
-            int midValue = matrix[row][col];
-
-            if (midValue == target) {
+        while(st<=end){
+            int mid = st + (end - st)/2;
+            if(target == mat[row][mid]){
                 return true;
-            } 
-            if (midValue < target) {
-                left = mid + 1; 
-            } 
-            else {
-                right = mid - 1;
+            }else if(target > mat[row][mid]){
+                st = mid + 1;
+            }else {
+                end = mid-1;
             }
-        }
-        
-        return false;
+        }return false;
+    }
+    bool searchMatrix(vector<vector<int>>& mat, int target){
+        int m = mat.size(), n = mat[0].size();
+        int strow=0, endrow=m-1;
+        while(strow <= endrow){
+            int midrow = strow + (endrow - strow)/2;
+            if(target >= mat[midrow][0] && target <= mat[midrow][n-1]){
+                return searchInRow(mat, target, midrow);
+            }else if(target >=mat[midrow][n-1]){
+                strow = midrow + 1;
+            }else{
+                endrow = midrow - 1;
+            }
+        }return false;
     }
 };
