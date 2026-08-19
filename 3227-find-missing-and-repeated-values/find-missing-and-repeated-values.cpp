@@ -1,23 +1,19 @@
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
-        unordered_set<int> s;
-        vector<int> ans;
-        int actsum=0, expsum=0;
-        int i,a,b, n = grid.size();
-        for(i = 0; i<n; i++){
-            for(int j=0; j<n;j++){
-                actsum += grid[i][j];
-                if(s.find(grid[i][j]) != s.end()){
-                    a = grid[i][j];
-                    ans.push_back(a);
-                }
-                s.insert(grid[i][j]);
-            }
+       int n = grid.size();
+       vector<int> freq(n*n+1,0);
+       int a=-1,b=-1;
+       for(auto& row : grid){
+        for(int x : row){
+            freq[x]++;
         }
-        expsum = ((n*n)*(n*n + 1))/2;
-        b = expsum + a - actsum;
-        ans.push_back(b);
-        return ans;
+       }
+       for (int i = 1; i <= n * n; i++){
+        if(freq[i] == 0)
+        b = i;
+       else if (freq[i] == 2)
+        a = i;
+       }return {a,b};
     }
 };
