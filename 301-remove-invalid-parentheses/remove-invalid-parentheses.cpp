@@ -1,5 +1,5 @@
 class Solution {
-private:
+public:
     unordered_set<string> valid_set;
 
     void dfs(const string& s, int index, int open_rem, int close_rem, int balance, string& current) {
@@ -35,8 +35,9 @@ private:
         }
     }
 
-public:
     vector<string> removeInvalidParentheses(string s) {
+        valid_set.clear(); 
+
         int open_rem = 0;
         int close_rem = 0;
 
