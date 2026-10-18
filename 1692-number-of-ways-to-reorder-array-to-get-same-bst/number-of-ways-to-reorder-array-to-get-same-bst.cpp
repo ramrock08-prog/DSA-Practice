@@ -1,19 +1,15 @@
 class Solution {
     long long MOD = 1e9 + 7;
     vector<vector<long long>> table;
-    long long combination(int n, int k) {
-        if (k == 0 || k == n) return 1;
-        if (table[n][k] != -1) return table[n][k];
-        return table[n][k] = (combination(n - 1, k - 1) + combination(n - 1, k)) % MOD;
-    }
 
-    long long dfs(vector<int>& nums) {
+    long long dfs(const vector<int>& nums) {
         int n = nums.size();
         if (n <= 2) return 1;
 
         vector<int> left, right;
         int root = nums[0];
-
+        left.reserve(n);
+        right.reserve(n);
         for (int i = 1; i < n; ++i) {
             if (nums[i] < root) {
                 left.push_back(nums[i]);
@@ -27,8 +23,7 @@ class Solution {
 
         int L = left.size();
         int R = right.size();
-
-        long long ways = combination(L + R, L);
+        long long ways = table[L + R][L];
         ways = (ways * leftWays) % MOD;
         ways = (ways * rightWays) % MOD;
 
@@ -38,8 +33,12 @@ class Solution {
 public:
     int numOfWays(vector<int>& nums) {
         int n = nums.size();
-        table = vector<vector<long long>>(n + 1, vector<long long>(n + 1, -1));
-
+        table = vector<vector<long long>>(n + 1, vector<long long>(n + 1, 1));
+        for (int i = 2; i <= n; ++i) {
+            for (int j = 1; j < i; ++j) {
+                table[i][j] = (table[i - 1][j - 1] + table[i - 1][j]) % MOD;
+            }
+        }
         return (dfs(nums) - 1 + MOD) % MOD;
     }
 };
