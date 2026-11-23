@@ -1,0 +1,27 @@
+class ProductOfNumbers {
+private:
+    vector<long long> prefix;
+
+public:
+    ProductOfNumbers() {
+        prefix.push_back(1);
+    }
+    
+    void add(int num) {
+        if (num == 0) {
+            prefix.clear();
+            prefix.push_back(1);
+        } else {
+            prefix.push_back(prefix.back() * num);
+        }
+    }
+    
+    int getProduct(int k) {
+        int n = static_cast<int>(prefix.size());
+        if (k >= n) {
+            return 0;
+        }
+        return static_cast<int>(prefix.back() / prefix[n - 1 - k]);
+    }
+};
+
